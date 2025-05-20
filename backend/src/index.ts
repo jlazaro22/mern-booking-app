@@ -1,9 +1,12 @@
 import cors from 'cors';
 import 'dotenv/config';
 import express, { json, Request, Response, urlencoded } from 'express';
+import mongooseConnect from './lib/mongoose';
 
 const host = process.env.HOST || '0.0.0.0';
 const port = Number(process.env.PORT);
+
+mongooseConnect();
 
 const app = express();
 
