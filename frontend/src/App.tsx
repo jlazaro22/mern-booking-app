@@ -1,7 +1,28 @@
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router';
+import Layout from './layouts/Layout';
+
 export default function App() {
   return (
-    <div className='bg-amber-200 min-h-screen flex justify-center items-center'>
-      <h1 className='text-3xl font-bold text-slate-800'>Vite + React</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path='/'
+          element={
+            <Layout>
+              <p>Home Page</p>
+            </Layout>
+          }
+        />
+        <Route
+          path='/search'
+          element={
+            <Layout>
+              <p>Search Page</p>
+            </Layout>
+          }
+        />
+        <Route path='*' element={<Navigate to='/' />} />
+      </Routes>
+    </Router>
   );
 }
