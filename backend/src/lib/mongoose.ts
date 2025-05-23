@@ -7,7 +7,7 @@ export default function mongooseConnect() {
     throw new Error('Missing MONGODB_CONNECTION_STRING environment variable');
   }
 
-  mongoose.connect(db).then(() => {
+  mongoose.connect(db, { dbName: 'mern-booking-app-db' }).then(() => {
     console.log('✅ Connected to MongoDB');
   });
 }
