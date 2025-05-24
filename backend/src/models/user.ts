@@ -25,9 +25,16 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-export const userRegisterValidation = [
+export const userRegisterValidationSchema = [
   check('firstName', 'First name is required').isString().not().isEmpty(),
   check('lastName', 'Last name is required').isString().not().isEmpty(),
+  check('email', 'Email is required').isEmail().not().isEmpty(),
+  check('password', 'Password with 6 or more characters required').isLength({
+    min: 6,
+  }),
+];
+
+export const userLoginValidationSchema = [
   check('email', 'Email is required').isEmail().not().isEmpty(),
   check('password', 'Password with 6 or more characters required').isLength({
     min: 6,

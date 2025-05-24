@@ -1,13 +1,14 @@
+import bcrypt from 'bcryptjs';
 import { Request, Response, Router } from 'express';
 import { validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
-import User, { userRegisterValidationSchema } from '../models/user';
+import User, { userLoginValidationSchema } from '../models/user';
 
 const router: Router = Router();
 
 router.post(
-  '/register',
-  userRegisterValidationSchema,
+  '/login',
+  userLoginValidationSchema,
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
 
@@ -16,16 +17,22 @@ router.post(
       return;
     }
 
-    try {
-      let user = await User.findOne({ email: req.body.email });
+    const { email, password } = req.body;
 
-      if (user) {
-        res.status(400).json({ message: 'User already exists' });
+    try {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        res.status(400).json({ message: 'Invalid credentials' });
         return;
       }
 
-      user = new User(req.body);
-      await user.save();
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordValid) {
+        res.status(400).json({ message: 'Invalid credentials' });
+        return;
+      }
 
       const token = jwt.sign(
         { userId: user._id },
@@ -41,7 +48,7 @@ router.post(
         maxAge: 86400000, // 1 day,
       });
 
-      res.status(200).json({ message: 'User registered OK' });
+      res.status(200).json({ userId: user._id });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Something went wrong' });
