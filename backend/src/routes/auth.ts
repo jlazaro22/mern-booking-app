@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import { Request, Response, Router } from 'express';
 import { validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
+import verifyToken from '../middleware/auth';
 import User, { userLoginValidationSchema } from '../models/user';
 
 const router: Router = Router();
@@ -53,6 +54,14 @@ router.post(
       console.error(error);
       res.status(500).json({ message: 'Something went wrong' });
     }
+  },
+);
+
+router.get(
+  '/validate-token',
+  verifyToken,
+  async (req: Request, res: Response) => {
+    res.status(200).json({ userId: req.userId });
   },
 );
 

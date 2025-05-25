@@ -4,17 +4,24 @@ import express, { json, Request, Response, urlencoded } from 'express';
 import mongooseConnect from './lib/mongoose';
 import authRoutes from './routes/auth';
 import userRoutes from './routes/users';
+import cookieParser from 'cookie-parser';
 
-const host = process.env.HOST || '0.0.0.0';
+const host = process.env.HOST as string;
 const port = Number(process.env.PORT);
 
 mongooseConnect();
 
 const app = express();
 
+app.use(cookieParser());
 app.use(json());
 app.use(urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  }),
+);
 
 app.get('/api/test', (req: Request, res: Response) => {
   res.status(200).json({ message: 'Hello from Express endpoint!' });
