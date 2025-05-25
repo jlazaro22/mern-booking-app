@@ -1,10 +1,10 @@
-name: mern-booking-app
+name: mern-booking-app-e2e-test
 
 services:
-  app-db:
+  app-e2e-test-db:
     image: mongodb/mongodb-community-server:latest
     ports:
-      - 27017:27017
+      - 27027:27017
     environment:
       - MONGO_INITDB_ROOT_USERNAME=docker
       - MONGO_INITDB_ROOT_PASSWORD=docker
