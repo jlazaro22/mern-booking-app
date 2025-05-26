@@ -1,10 +1,11 @@
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import 'dotenv/config';
 import express, { json, Request, Response, urlencoded } from 'express';
+import path from 'path';
 import mongooseConnect from './lib/mongoose';
 import authRoutes from './routes/auth';
 import userRoutes from './routes/users';
-import cookieParser from 'cookie-parser';
 
 const host = process.env.HOST as string;
 const port = Number(process.env.PORT);
@@ -22,6 +23,8 @@ app.use(
     credentials: true,
   }),
 );
+
+app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 
 app.get('/api/test', (req: Request, res: Response) => {
   res.status(200).json({ message: 'Hello from Express endpoint!' });
