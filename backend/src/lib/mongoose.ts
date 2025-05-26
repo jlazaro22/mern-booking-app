@@ -1,15 +1,18 @@
 import mongoose from 'mongoose';
 
 export default function mongooseConnect() {
-  const db = process.env.MONGODB_CONNECTION_STRING;
   const environment = process.env.NODE_ENV;
+  const db =
+    environment === 'production'
+      ? process.env.MONGODB_CONNECTION_STRING
+      : process.env.MONGODB_CONNECTION_STRING_DEV;
 
   if (!db) {
     throw new Error('Missing MONGODB_CONNECTION_STRING environment variable');
   }
 
   if (environment === 'development') {
-    mongoose.connect(db, { dbName: 'app-db' }).then(() => {
+    mongoose.connect(db, { dbName: 'app-dev-db' }).then(() => {
       console.log('✅ Connected to MongoDB: ', db);
     });
   } else if (environment === 'test') {
