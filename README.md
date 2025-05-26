@@ -1,6 +1,6 @@
 # Complete MERN Stack Project: Hotel Booking App
 
-🚀 A full-fledged Booking App using the **MERN** stack with **TypeScript**, plus **Vite**, **Tailwind CSS**, **React Router**, **React Query**, **React Hook Form** and more.
+🚀 A full-fledged Booking App using the **MERN** stack with **TypeScript**, plus **Vite**, **Tailwind CSS**, **React Router**, **React Query**, **React Hook Form**, **Playwright (unit tests)** and more.
 
 🔑 *Key Features of Our Booking App:*
 
