@@ -12,6 +12,10 @@
 6. **Booking Management**: Implement the feature to view and manage bookings, essential for any booking application.
 7. **Recent Hotels on Home Page**: Display recently added hotels on the home page, keeping the content dynamic and engaging.
 
+## Live Demo
+
+[🚀 mern-booking-app on Render.com](https://mern-booking-app-4rhl.onrender.com)
+
 ## Installation
 
 OS X & Linux:
